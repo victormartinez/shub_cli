@@ -17,7 +17,6 @@ Examples:
   shub-cli jobs
   shub-cli jobs -c 100
   shub-cli jobs -t fast,production -l consumed,dev -s spider1 state finished
-  shub-cli jobs tags consumed lacks teste spider my-spider state state count 1000
   shub-cli job -id '10/10/1000'
 
 
@@ -36,8 +35,6 @@ config = load_shub_config()
 api_keys = config.apikeys
 projects = config.projects
 
-
-# 70953/91/7817
 
 def main():
     """Main CLI entrypoint."""
