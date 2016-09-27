@@ -1,19 +1,18 @@
 def display(job):
     if job:
         info = job.info
-        print(info)
         print('')
         print('##############################')
         print('Job: {}'.format(info['id']))
         print('##############################')
-        if info['started_time']:
+        if 'started_time' in info.keys():
             print('Started At: {}'.format(info['started_time']))
 
         print('Spider: {}'.format(info['spider']))
         print('Items Scraped: {}'.format(info['items_scraped']))
         print('State: {}'.format(info['state']))
 
-        if info['close_reason']:
+        if 'close_reason' in info.keys():
             print('Close Reason: {}'.format(info['close_reason']))
 
         print('Errors: {}'.format(info['errors_count']))
