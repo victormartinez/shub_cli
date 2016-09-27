@@ -30,8 +30,8 @@ def job(id):
 
 
 @main.command()
-@click.option('-tags', nargs=1, type=click.STRING, help='Tags that the jobs must contain.')
-@click.option('-lacks', nargs=1, type=click.STRING, help='Tags that the jobs can not contain.')
+@click.option('-tags', nargs=1, type=click.STRING, help='Tags that the jobs must contain separated by comma.')
+@click.option('-lacks', nargs=1, type=click.STRING, help='Tags that the jobs can not contain separated by comma.')
 @click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
 @click.option('-state', nargs=1, type=click.STRING, help='State of the job.')
 @click.option('-count', nargs=1, type=click.INT, help='Number of results.', default=10)
