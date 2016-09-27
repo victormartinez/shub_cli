@@ -2,3 +2,4 @@ shub==2.4.2
 prompt_toolkit==1.0.7
 click==6.6
 click-repl==0.1.0
+terminaltables==3.0.0
