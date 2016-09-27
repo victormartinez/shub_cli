@@ -4,8 +4,7 @@ from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection
 
 from shub_cli.commands.job import get_job, get_jobs
-from shub_cli.config import error_style, tokens
-from shub_cli.util.display import display, display_jobs
+from shub_cli.util.display import display, display_jobs, shub_not_configured_tokens, error_style
 from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
@@ -23,7 +22,7 @@ def main(api, project):
     API_KEY = get_sh_api_key(api)
     PROJECT = get_sh_project(project)
     if API_KEY is None or PROJECT is None:
-        print_tokens(tokens, style=error_style)
+        print_tokens(shub_not_configured_tokens, style=error_style)
         exit()
 
 
@@ -32,10 +31,7 @@ def main(api, project):
 def job(id):
     conn = Connection(apikey=API_KEY)
     job = get_job(id, conn, PROJECT)
-    if not job:
-        click.echo('Not jobs found.')
-    else:
-        display(job, click)
+    display(job, click)
 
 
 @main.command()
