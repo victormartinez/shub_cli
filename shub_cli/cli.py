@@ -2,8 +2,9 @@ import click
 from click_repl import register_repl
 from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection
+
 from shub_cli.commands.job import get_job, get_jobs
-from shub_cli.config import tokens, error_style
+from shub_cli.config import error_style, tokens
 from shub_cli.util.display import display, display_jobs
 from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project

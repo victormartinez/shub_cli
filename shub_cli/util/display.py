@@ -1,4 +1,4 @@
-from shub_cli.util.scrapinghub import get_job_main_info
+from shub_cli.util.parse import get_job_main_info
 from terminaltables import SingleTable
 
 TABLE_JOB_MODEL = [
