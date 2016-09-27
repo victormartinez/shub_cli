@@ -1,32 +1,34 @@
+from shub_cli.util.scrapinghub import get_job_main_info
+from terminaltables import SingleTable
+
+TABLE_JOB_MODEL = [
+    ['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']
+]
+
+TABLE_JOBS_MODEL = [
+    ['Id', 'Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']
+]
+
+
 def display(job):
-    if job:
-        info = job.info
-        print('')
-        print('##############################')
-        print('Job: {}'.format(info['id']))
-        print('##############################')
-        if 'started_time' in info.keys():
-            print('Started At: {}'.format(info['started_time']))
-
-        print('Spider: {}'.format(info['spider']))
-        print('Items Scraped: {}'.format(info['items_scraped']))
-        print('State: {}'.format(info['state']))
-
-        if 'close_reason' in info.keys():
-            print('Close Reason: {}'.format(info['close_reason']))
-
-        print('Errors: {}'.format(info['errors_count']))
-        print('Spider Args: {}'.format(info['spider_args']))
-        print('Tags: {}'.format(info['tags']))
-        print('Version: {}'.format(info['version']))
-    else:
-        print('')
-        print('Job not found')
+    main_info = get_job_main_info(job)
+    table_data = TABLE_JOB_MODEL.copy()
+    table_data.append(
+        [main_info['spider'], main_info['started_time'], main_info['items_scraped'], main_info['tags'],
+         main_info['state'], main_info['close_reason'], main_info['errors_count'], main_info['version']]
+    )
+    table = SingleTable(table_data)
+    print(table.table)
 
 
 def display_jobs(jobs):
-    if not jobs:
-        print('Jobs not found')
-
+    table_data = TABLE_JOBS_MODEL.copy()
     for job in jobs:
-        display(job)
+        main_info = get_job_main_info(job)
+        table_data.append(
+            [main_info['id'], main_info['spider'], main_info['started_time'], main_info['items_scraped'],
+             main_info['tags'], main_info['state'], main_info['close_reason'], main_info['errors_count'],
+             main_info['version']]
+        )
+    table = SingleTable(table_data)
+    print(table.table)
