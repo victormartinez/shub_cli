@@ -7,11 +7,11 @@ Usage:
   shub-cli job -id <id>
 
 Options:
-  -t TAG1,TAG2    Description.
-  -l LACK1,LACK2  Description.
-  -s SPIDER       Description.
-  -e STATE        Description.
-  -c COUNT        Description.
+  -t TAG1,TAG2    Tags that the jobs must contain.
+  -l LACK1,LACK2  Tags that the jobs can not contain.
+  -s SPIDER       Name of the spider.
+  -e STATE        State of the job.
+  -c COUNT        Number of results.
 
 Examples:
   shub-cli jobs
@@ -24,35 +24,48 @@ Help:
   For help using this tool, please open an issue on the Github repository:
   https://github.com/victormartinez/shub_cli
 """
-from docopt import docopt
-from shub_cli import __version__ as VERSION
+import click
+from scrapinghub import Connection
 from shub.config import load_shub_config
-from shub_cli.commands.job import Job
-from shub_cli.commands.jobs import Jobs
+from shub_cli.commands.job import get_job, get_jobs
 from shub_cli.util.display import display, display_jobs
+from shub_cli.util.parse import create_dict
 
 config = load_shub_config()
 api_keys = config.apikeys
 projects = config.projects
 
+default_api_key = api_keys['default']
+default_project = projects['default']
 
+conn = Connection(apikey=default_api_key)
+
+
+@click.group()
 def main():
     """Main CLI entrypoint."""
-    default_api_key = api_keys['default']
-    default_project = projects['default']
-    options = dict(docopt(__doc__, version=VERSION).items())
+    pass
 
-    print('Connection: {}'.format(default_api_key))
-    print('Project: {}'.format(default_project))
 
-    if 'job' in options.keys() and options['job'] == True:
-        if '-id' in options.keys():
-            job = Job(options, api_key=default_api_key, project=default_project)
-            display(job.run())
-        else:
-            print('')
-            print('Wrong command.')
+@click.command()
+@click.option('--id', type=click.STRING, help='Job Id')
+def job(id):
+    job = get_job(id, conn, default_project)
+    display(job)
 
-    if 'jobs' in options.keys() and options['jobs'] == True:
-        jobs = Jobs(options, api_key=default_api_key, project=default_project)
-        display_jobs(jobs.run())
+
+@click.command()
+@click.option('-tags', nargs=1, type=click.STRING, help='Tags that the jobs must contain.')
+@click.option('-lacks', nargs=1, type=click.STRING, help='Tags that the jobs can not contain.')
+@click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
+@click.option('-state', nargs=1, type=click.STRING, help='State of the job.')
+@click.option('-count', nargs=1, type=click.INT, help='Number of results.', default=10)
+def jobs(tags, lacks, spider, state, count):
+    # shub-cli jobs -tags a,b,c -lacks a -state state
+    options = create_dict(tags, lacks, spider, state, count)
+    jobs = get_jobs(options, conn, default_project)
+    display_jobs(jobs)
+
+
+main.add_command(job)
+main.add_command(jobs)

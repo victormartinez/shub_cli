@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-from scrapinghub import Connection
+from shub_cli.util.parse import parse_options
 
 
-class Job(object):
-    """Job"""
+def get_job(id, conn, project):
+    return conn[project].job(id)
 
-    def __init__(self, options, **kwargs):
-        print(options)
-        self.job_id = options['-id']
-        self.conn = Connection(apikey=kwargs['api_key'])
-        self.project = kwargs['project']
 
-    def run(self):
-        return self.conn[self.project].job(self.job_id)
+def get_jobs(options, conn, project):
+    params = parse_options(options)
+    return conn[project].jobs(**params, count=options['count'])
