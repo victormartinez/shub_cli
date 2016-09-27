@@ -5,7 +5,7 @@ from scrapinghub import Connection
 from shub_cli.commands.job import get_job, get_jobs
 from shub_cli.config import tokens, error_style
 from shub_cli.util.display import display, display_jobs
-from shub_cli.util.parse import create_dict
+from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
 API_KEY = None
@@ -31,19 +31,22 @@ def main(api, project):
 def job(id):
     conn = Connection(apikey=API_KEY)
     job = get_job(id, conn, PROJECT)
-    display(job)
+    if not job:
+        print('Not jobs found.')
+    else:
+        display(job)
 
 
 @main.command()
-@click.option('-tags', nargs=1, type=click.STRING, help='Tags that the jobs must contain separated by comma.')
-@click.option('-lacks', nargs=1, type=click.STRING, help='Tags that the jobs can not contain separated by comma.')
+@click.option('-tag', nargs=1, type=click.STRING, help='Tag that the jobs must contain.')
+@click.option('-lacks', nargs=1, type=click.STRING, help='Tag that the jobs can not contain.')
 @click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
 @click.option('-state', nargs=1, type=click.STRING, help='State of the job.')
-@click.option('-count', nargs=1, type=click.INT, help='Number of results.', default=10)
-def jobs(tags, lacks, spider, state, count):
-    options = create_dict(tags, lacks, spider, state, count)
+@click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
+def jobs(tag, lacks, spider, state, count):
+    params = parse_options(tag, lacks, spider, state)
     conn = Connection(apikey=API_KEY)
-    jobs = get_jobs(options, conn, PROJECT)
+    jobs = get_jobs(params, conn, PROJECT, count)
     display_jobs(jobs)
 
 

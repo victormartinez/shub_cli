@@ -4,6 +4,8 @@ from pygments.token import Token
 error_style = style_from_dict({
     Token.ErrorMessage: '#ff0066',
     Token.ShubFileModel: '#ccaa33',
+    Token.JobNotFound: '#ccaa33',
+    Token.JobsNotFound: '#ccaa33',
 })
 
 tokens = [
@@ -17,5 +19,7 @@ apikeys:
 projects:
   default: 89090
 '''
-    )
+    ),
+    (Token.JobNotFound, 'Job not found.'),
+    (Token.JobsNotFound, 'Jobs not found.'),
 ]

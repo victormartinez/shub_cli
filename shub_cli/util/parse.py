@@ -1,26 +1,15 @@
-
-def create_dict(tags, lacks, spider, state, count):
-    return {
-        'tags': tags,
-        'lacks': lacks,
-        'spider': spider,
-        'state': state,
-        'count': count
-    }
-
-
-def parse_options(options):
+def parse_options(tag, lacks, spider, state):
     params = {}
-    if options['spider']:
-        params.update({'spider': options['spider']})
+    if spider:
+        params.update({'spider': spider})
 
-    if options['state']:
-        params.update({'state': options['state']})
+    if state:
+        params.update({'state': state})
 
-    if options['tags']:
-        params.update({'has_tag': options['tags'].split(',')})
+    if tag:
+        params.update({'has_tag': tag})
 
-    if options['lacks']:
-        params.update({'lacks_tag': options['lacks'].split(',')})
+    if lacks:
+        params.update({'lacks_tag': lacks})
 
     return params
