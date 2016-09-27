@@ -1,7 +1,9 @@
 import click
 from click_repl import register_repl
+from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection
 from shub_cli.commands.job import get_job, get_jobs
+from shub_cli.config import tokens, error_style
 from shub_cli.util.display import display, display_jobs
 from shub_cli.util.parse import create_dict
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
@@ -19,10 +21,13 @@ def main(api, project):
     global PROJECT
     API_KEY = get_sh_api_key(api)
     PROJECT = get_sh_project(project)
+    if API_KEY is None or PROJECT is None:
+        print_tokens(tokens, style=error_style)
+        exit()
 
 
 @main.command()
-@click.option('--id', type=click.STRING, help='Job Id')
+@click.option('-id', type=click.STRING, help='Job Id')
 def job(id):
     conn = Connection(apikey=API_KEY)
     job = get_job(id, conn, PROJECT)
