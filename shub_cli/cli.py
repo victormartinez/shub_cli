@@ -33,9 +33,9 @@ def job(id):
     conn = Connection(apikey=API_KEY)
     job = get_job(id, conn, PROJECT)
     if not job:
-        print('Not jobs found.')
+        click.echo('Not jobs found.')
     else:
-        display(job)
+        display(job, click)
 
 
 @main.command()
@@ -48,7 +48,7 @@ def jobs(tag, lacks, spider, state, count):
     params = parse_options(tag, lacks, spider, state)
     conn = Connection(apikey=API_KEY)
     jobs = get_jobs(params, conn, PROJECT, count)
-    display_jobs(jobs)
+    display_jobs(jobs, click)
 
 
 register_repl(main)

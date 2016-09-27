@@ -10,7 +10,7 @@ TABLE_JOBS_MODEL = [
 ]
 
 
-def display(job):
+def display(job, click):
     main_info = get_job_main_info(job)
     table_data = TABLE_JOB_MODEL.copy()
     table_data.append(
@@ -18,10 +18,10 @@ def display(job):
          main_info['state'], main_info['close_reason'], main_info['errors_count'], main_info['version']]
     )
     table = SingleTable(table_data)
-    print(table.table)
+    click.echo(table.table)
 
 
-def display_jobs(jobs):
+def display_jobs(jobs, click):
     table_data = TABLE_JOBS_MODEL.copy()
     for job in jobs:
         main_info = get_job_main_info(job)
@@ -31,4 +31,4 @@ def display_jobs(jobs):
              main_info['version']]
         )
     table = SingleTable(table_data)
-    print(table.table)
+    click.echo(table.table)
