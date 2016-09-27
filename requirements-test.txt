@@ -1,0 +1,3 @@
+pytest==2.9.2
+pytest-cov==2.2.1
+pytest-flakes==1.0.1
