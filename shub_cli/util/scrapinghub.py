@@ -6,7 +6,10 @@ def get_sh_api_key(api):
         return api
 
     config = load_shub_config()
-    return config.apikeys['default']
+    try:
+        return config.apikeys['default']
+    except KeyError:
+        return None
 
 
 def get_sh_project(project):
@@ -14,4 +17,7 @@ def get_sh_project(project):
         return project
 
     config = load_shub_config()
-    return config.projects['default']
+    try:
+        return config.projects['default']
+    except KeyError:
+        return None
