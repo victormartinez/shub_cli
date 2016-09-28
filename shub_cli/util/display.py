@@ -26,3 +26,10 @@ def display_jobs(jobs, click):
         )
     table = SingleTable(table_data)
     click.echo(table.table)
+
+
+def display_log(job, click):
+    logs = job.log()
+
+    for log in logs:
+        click.echo(log + '\n')

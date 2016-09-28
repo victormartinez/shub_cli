@@ -6,7 +6,7 @@ from scrapinghub import Connection
 
 from shub_cli.commands.job import get_job, get_jobs
 from shub_cli.config.display import shub_not_configured_tokens, error_style, no_internet_connection_tokens
-from shub_cli.util.display import display, display_jobs
+from shub_cli.util.display import display, display_jobs, display_log
 from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
@@ -30,14 +30,17 @@ def main(api, project):
 
 @main.command()
 @click.option('-id', type=click.STRING, help='Job Id')
-def job(id):
+@click.option('--with-log', is_flag=True, help='Presents the log of a job')
+def job(id, with_log):
     conn = Connection(apikey=API_KEY)
     try:
         job = get_job(id, conn, PROJECT)
         display(job, click)
+        if with_log:
+            display_log(job, click)
+
     except requests.exceptions.ConnectionError:
         print_tokens(no_internet_connection_tokens, style=error_style)
-
 
 
 @main.command()
