@@ -12,7 +12,7 @@ def display(job, click):
     """
     if job:
         main_info = get_job_main_info(job)
-        table_data = TABLE_JOB_MODEL.copy()
+        table_data = list(TABLE_JOB_MODEL)
         table_data.append(
             [main_info['spider'], main_info['started_time'], main_info['items_scraped'], main_info['tags'],
              main_info['state'], main_info['close_reason'], main_info['errors_count'], main_info['version']]
@@ -28,7 +28,7 @@ def display_jobs(jobs, click):
     :param jobs: A JobSet object provided by ScrapingHub with all the jobs
     :param click: A click object used to print on the terminal
     """
-    table_data = TABLE_JOBS_MODEL.copy()
+    table_data = list(TABLE_JOBS_MODEL)
     for job in jobs:
         main_info = get_job_main_info(job)
         table_data.append(
