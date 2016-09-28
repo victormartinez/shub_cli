@@ -1,7 +1,7 @@
 from toolz import dicttoolz
 
 
-def parse_options(tag, lacks, spider, state):
+def parse_options(tag, lacks, spider, state, count):
     """
     Creates a dictionary based on the arguments. Only non-None arguments will be part of the dictionary.
 
@@ -11,11 +11,16 @@ def parse_options(tag, lacks, spider, state):
     :param state: A state string
     :return: A dict with the non-None keys and values
     """
+    default_count = 10
+    if count:
+        default_count = count
+
     params = dict(
         lacks_tag=lacks,
         has_tag=tag,
         spider=spider,
-        state=state
+        state=state,
+        count=default_count
     )
     return dicttoolz.valfilter(lambda v: v is not None, params)
 

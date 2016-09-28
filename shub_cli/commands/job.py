@@ -13,7 +13,7 @@ def get_job(id, conn, project):
     return conn[project].job(id)
 
 
-def get_jobs(params, conn, project, count):
+def get_jobs(params, conn, project):
     """
     Get a JobSet from ScrapingHub.
 
@@ -23,4 +23,4 @@ def get_jobs(params, conn, project, count):
     :param count: The number of results
     :return: A JobSet provided by ScrapingHub
     """
-    return conn[project].jobs(**params, count=count)
+    return conn[project].jobs(**params)

@@ -52,10 +52,10 @@ def job(id, with_log):
 @click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
 def jobs(tag, lacks, spider, state, count):
     """See information of N jobs"""
-    params = parse_options(tag, lacks, spider, state)
+    params = parse_options(tag, lacks, spider, state, count)
     conn = Connection(apikey=API_KEY)
     try:
-        jobs = get_jobs(params, conn, PROJECT, count)
+        jobs = get_jobs(params, conn, PROJECT)
         display_jobs(jobs, click)
     except requests.exceptions.ConnectionError:
         print_tokens(no_internet_connection_tokens, style=error_style)

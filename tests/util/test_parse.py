@@ -82,11 +82,12 @@ def test_parse_list_to_string(tag_list, expected):
 
 
 @pytest.mark.parametrize("tag, lacks, spider, state, expected", [
-    ('production', None, None, None, {'has_tag': 'production'}),
-    ('production', 'development', None, None, {'has_tag': 'production', 'lacks_tag': 'development'}),
-    ('production', 'development', 'my-spider', None, {'has_tag': 'production', 'lacks_tag': 'development', 'spider': 'my-spider'}),
-    ('production', 'development', 'my-spider', 'finished', {'has_tag': 'production', 'lacks_tag': 'development', 'spider': 'my-spider', 'state': 'finished'}),
+    ('production', None, None, None, None, {'has_tag': 'production', 'count': 10}),
+    ('production', 'development', None, None, None, {'has_tag': 'production', 'lacks_tag': 'development', 'count': 10}),
+    ('production', 'development', 'my-spider', None, None, {'has_tag': 'production', 'lacks_tag': 'development', 'spider': 'my-spider', 'count': 10}),
+    ('production', 'development', 'my-spider', 'finished', None, {'has_tag': 'production', 'lacks_tag': 'development', 'spider': 'my-spider', 'state': 'finished', 'count': 10}),
+    ('production', 'development', 'my-spider', 'finished', '30', {'has_tag': 'production', 'lacks_tag': 'development', 'spider': 'my-spider', 'state': 'finished', 'count': 30}),
 ])
-def test_parse_options(tag, lacks, spider, state, expected):
-    options = parse_options(tag, lacks, spider, state)
+def test_parse_options(tag, lacks, spider, state, count, expected):
+    options = parse_options(tag, lacks, spider, state, count)
     assert options == expected

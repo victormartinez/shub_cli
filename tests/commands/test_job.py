@@ -37,7 +37,7 @@ def params():
 @patch('scrapinghub.Connection')
 def test_get_jobs(conn, job, params):
     conn['123456'].jobs.return_value = [job]
-    jobs = get_jobs(params, conn, '128901', 1)
+    jobs = get_jobs(params, conn, '128901')
     assert jobs == [job]
 
 
