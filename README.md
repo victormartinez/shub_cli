@@ -3,7 +3,7 @@
 A Command Line Interface at your hands to deal with the features of ScrapingHub.
 
 
-![start-using](https://cloud.githubusercontent.com/assets/4680755/18898412/e69245f4-8507-11e6-87d6-be53b4bb59de.gif)
+![start-using](https://cloud.githubusercontent.com/assets/4680755/18898756/0ea42c0e-850a-11e6-801a-fdbd75915cdd.gif)
 
 
 ### Quick Start:
