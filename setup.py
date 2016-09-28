@@ -1,35 +1,25 @@
 from codecs import open
 from os.path import abspath, dirname, join
-from subprocess import call
-from setuptools import Command, find_packages, setup
-from shub_cli import __version__
+from setuptools import find_packages, setup
+from shub_cli import __version__ as VERSION
+from pip.req import parse_requirements
 
 this_dir = abspath(dirname(__file__))
 with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
     long_description = file.read()
 
 
-class RunTests(Command):
-    """Run all tests."""
-    description = 'run tests'
-    user_options = []
+def _to_list(requires):
+    return [str(ir.req) for ir in requires]
 
-    def initialize_options(self):
-        pass
 
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        """Run all tests!"""
-        errno = call(['py.test', '--cov=shub_cli', '--cov-report=term-missing'])
-        raise SystemExit(errno)
-
+install_requires = _to_list(parse_requirements('requirements.txt', session=False))
+tests_require = _to_list(parse_requirements('requirements-test.txt', session=False))
 
 setup(
     name='shub-cli',
-    version=__version__,
-    description='A Scrapinhub command line program in Python to enhance productivity.',
+    version=VERSION,
+    description='A CLI at your hands to deal with the features of ScrapingHub.',
     long_description=long_description,
     url='https://github.com/victormartinez/shub_cli',
     author='Victor Martinez',
@@ -41,8 +31,6 @@ setup(
         'License :: Public Domain',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
@@ -51,14 +39,12 @@ setup(
     ],
     keywords='cli',
     packages=find_packages(exclude=['docs', 'tests*']),
-    install_requires=[],
-    extras_require={
-        'test': ['coverage', 'pytest', 'pytest-cov'],
-    },
+    tests_require=tests_require,
+    install_requires=install_requires,
+    setup_requires=['pytest-runner==2.8'],
     entry_points={
         'console_scripts': [
             'shub-cli=shub_cli.cli:main',
         ],
-    },
-    cmdclass={'test': RunTests},
+    }
 )
