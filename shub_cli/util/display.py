@@ -4,6 +4,12 @@ from terminaltables import SingleTable
 
 
 def display(job, click):
+    """
+    Display the job information.
+
+    :param job: A Job object provided by ScrapingHub
+    :param click: A click object used to print on the terminal
+    """
     if job:
         main_info = get_job_main_info(job)
         table_data = TABLE_JOB_MODEL.copy()
@@ -16,6 +22,12 @@ def display(job, click):
 
 
 def display_jobs(jobs, click):
+    """
+    Display all the jobs' information contained in a JobSet.
+
+    :param jobs: A JobSet object provided by ScrapingHub with all the jobs
+    :param click: A click object used to print on the terminal
+    """
     table_data = TABLE_JOBS_MODEL.copy()
     for job in jobs:
         main_info = get_job_main_info(job)
@@ -29,6 +41,13 @@ def display_jobs(jobs, click):
 
 
 def display_log(job, click):
+    """
+    Display all log messages.
+
+    :param job: A Job object provided by ScrapingHub
+    :param click: A click object used to print on the terminal
+    :return:
+    """
     logs = job.log()
 
     for log in logs:
