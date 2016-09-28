@@ -1,10 +1,12 @@
 import click
+import requests
 from click_repl import register_repl
 from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection
 
 from shub_cli.commands.job import get_job, get_jobs
-from shub_cli.util.display import display, display_jobs, shub_not_configured_tokens, error_style
+from shub_cli.config.display import shub_not_configured_tokens, error_style, no_internet_connection_tokens
+from shub_cli.util.display import display, display_jobs
 from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
@@ -30,8 +32,12 @@ def main(api, project):
 @click.option('-id', type=click.STRING, help='Job Id')
 def job(id):
     conn = Connection(apikey=API_KEY)
-    job = get_job(id, conn, PROJECT)
-    display(job, click)
+    try:
+        job = get_job(id, conn, PROJECT)
+        display(job, click)
+    except requests.exceptions.ConnectionError:
+        print_tokens(no_internet_connection_tokens, style=error_style)
+
 
 
 @main.command()
@@ -43,8 +49,12 @@ def job(id):
 def jobs(tag, lacks, spider, state, count):
     params = parse_options(tag, lacks, spider, state)
     conn = Connection(apikey=API_KEY)
-    jobs = get_jobs(params, conn, PROJECT, count)
-    display_jobs(jobs, click)
+    try:
+        jobs = get_jobs(params, conn, PROJECT, count)
+        display_jobs(jobs, click)
+    except requests.exceptions.ConnectionError:
+        print_tokens(no_internet_connection_tokens, style=error_style)
+        print()
 
 
 register_repl(main)

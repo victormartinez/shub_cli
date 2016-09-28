@@ -4,6 +4,7 @@ from pygments.token import Token
 error_style = style_from_dict({
     Token.ErrorMessage: '#ff0066',
     Token.ShubFileModel: '#ccaa33',
+    Token.NoInternetConnection: '#ff0066',
 })
 
 shub_not_configured_tokens = [
@@ -18,6 +19,10 @@ shub_not_configured_tokens = [
        default: 89090
      '''
      ),
+]
+
+no_internet_connection_tokens = [
+    (Token.NoInternetConnection, 'You do not have Internet connection.')
 ]
 
 TABLE_JOB_MODEL = [['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
