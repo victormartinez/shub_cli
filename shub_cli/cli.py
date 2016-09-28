@@ -18,12 +18,7 @@ PROJECT = None
 @click.option('-api', nargs=1, type=click.STRING, help='ScrapingHub API KEY')
 @click.option('-project', nargs=1, type=click.STRING, help='Scrapinghub Project Id')
 def main(api, project):
-    """
-    Main CLI Entrypoint
-
-    :param api: A ScrapingHub API KEY
-    :param project: A ScrapingHub PROJECT ID
-    """
+    """Main CLI Entrypoint"""
     global API_KEY
     global PROJECT
     API_KEY = get_sh_api_key(api)
@@ -37,12 +32,7 @@ def main(api, project):
 @click.option('-id', type=click.STRING, help='Job Id')
 @click.option('--with-log', is_flag=True, help='Presents the log of a job')
 def job(id, with_log):
-    """
-    Allow user to see information of a job
-
-    :param id: Job id
-    :param with_log: A flag that tells if the program should or not exhibit the log messages
-    """
+    """See information of a job"""
     conn = Connection(apikey=API_KEY)
     try:
         job = get_job(id, conn, PROJECT)
@@ -61,15 +51,7 @@ def job(id, with_log):
 @click.option('-state', nargs=1, type=click.STRING, help='State of the job.')
 @click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
 def jobs(tag, lacks, spider, state, count):
-    """
-    Allow user to see information of a number of Jobs
-
-    :param tag: The tag the jobs must contain
-    :param lacks: Tag that the jobs can not contain.
-    :param spider: Name of the spider.
-    :param state: State of the job.
-    :param count: Quantity of jobs to be exhibited.
-    """
+    """See information of N jobs"""
     params = parse_options(tag, lacks, spider, state)
     conn = Connection(apikey=API_KEY)
     try:
