@@ -3,3 +3,4 @@ prompt_toolkit==1.0.7
 click==6.6
 click-repl==0.1.0
 terminaltables==3.0.0
+Pygments==2.1.3
