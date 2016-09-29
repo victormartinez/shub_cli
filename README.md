@@ -5,6 +5,12 @@ A Command Line Interface at your hands to deal with the features of ScrapingHub.
 
 ![start-using](https://cloud.githubusercontent.com/assets/4680755/18898756/0ea42c0e-850a-11e6-801a-fdbd75915cdd.gif)
 
+### Install
+You must install it through pip.
+
+```
+$ pip install shub-cli
+```
 
 ### Configuration
 Shub CLI will look for the `.scrapinghub.yml` created by [ScrapingHub](https://doc.scrapinghub.com/shub.html?highlight=yml#quickstart) in your home directory and read the default API_KEY and PROJECT_ID.
