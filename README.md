@@ -45,6 +45,8 @@ $ shub-cli -api '<API KEY>' -project <PROJECT_ID> repl
 > jobs [-tag tag] [-lacks tag] [-spider spider] [-state state] [-count count]
 ```
 
+**Attention:** By default, shub-cli will prompt the last 10 jobs. To override that behaviour use the -count parameter with the number of jobs you intend to show.
+
 ##### Getting a specific job
 ```
 > job -id <id>
