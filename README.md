@@ -52,7 +52,7 @@ $ shub-cli -api '<API KEY>' -project <PROJECT_ID> repl
 
 ##### Getting a specific job along with the logs
 ```
-> job -id <id> --with-logs
+> job -id <id> --with-log
 ```
 
 
