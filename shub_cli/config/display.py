@@ -5,6 +5,11 @@ error_style = style_from_dict({
     Token.ErrorMessage: '#ff0066',
     Token.ShubFileModel: '#ccaa33',
     Token.NoInternetConnection: '#ff0066',
+    Token.ShubApiError: '#ff0066',
+
+    Token.ShubApiErrorHintsHeadline: '#ccaa33',
+    Token.ShubApiErrorHints1: '#ccaa33',
+    Token.ShubApiErrorHints2: '#ccaa33',
 })
 
 shub_not_configured_tokens = [
@@ -19,6 +24,13 @@ shub_not_configured_tokens = [
        default: 89090
      '''
      ),
+]
+
+shub_api_error_tokens = [
+    (Token.ShubApiError, 'Unknown response status from ScrapingHub: badrequest.\n'),
+    (Token.ShubApiErrorHintsHeadline, 'Hints:\n\n'),
+    (Token.ShubApiErrorHints1, '- Are your credentials [api key, project id] set correctly?\n'),
+    (Token.ShubApiErrorHints2, '- Are the job/jobs parameters named and passed corretly?\n')
 ]
 
 no_internet_connection_tokens = [

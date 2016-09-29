@@ -9,14 +9,14 @@ def get_sh_api_key(api):
     :param api: An api key
     :return: Api key
     """
-    if api:
+    if api is not None:
         return api
-
-    config = load_shub_config()
-    try:
-        return config.apikeys['default']
-    except KeyError:
-        return None
+    else:
+        config = load_shub_config()
+        try:
+            return config.apikeys['default']
+        except KeyError:
+            return None
 
 
 def get_sh_project(project):
@@ -27,11 +27,11 @@ def get_sh_project(project):
     :param project: A project id
     :return: Project id
     """
-    if project:
+    if project is not None:
         return project
-
-    config = load_shub_config()
-    try:
-        return config.projects['default']
-    except KeyError:
-        return None
+    else:
+        config = load_shub_config()
+        try:
+            return config.projects['default']
+        except KeyError:
+            return None
