@@ -63,10 +63,8 @@ def jobs(tag, lacks, spider, state, count):
         display_jobs(jobs, click)
     except requests.exceptions.ConnectionError:
         print_tokens(no_internet_connection_tokens, style=error_style)
-        print()
     except scrapinghub.APIError:
         print_tokens(shub_api_error_tokens, style=error_style)
-        print()
 
 
 register_repl(main)

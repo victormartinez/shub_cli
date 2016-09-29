@@ -22,6 +22,7 @@ shub_not_configured_tokens = [
        default: v65a787a987k08k9s797d7s8l98298sw
      projects:
        default: 89090
+     \n
      '''
      ),
 ]
@@ -34,7 +35,7 @@ shub_api_error_tokens = [
 ]
 
 no_internet_connection_tokens = [
-    (Token.NoInternetConnection, 'You do not have Internet connection.')
+    (Token.NoInternetConnection, 'You do not have Internet connection.\n')
 ]
 
 TABLE_JOB_MODEL = [['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
