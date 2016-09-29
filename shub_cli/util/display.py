@@ -48,7 +48,13 @@ def display_log(job, click):
     :param click: A click object used to print on the terminal
     :return:
     """
-    logs = job.log()
+    logs = list(job.log())
 
-    for log in logs:
-        click.echo(log + '\n')
+    if logs:
+        for log in logs:
+            click.echo('Level: {}'.format(log['level']))
+            click.echo('Time: {}'.format(log['time']))
+            click.echo('Message: {}'.format(log['message']))
+            click.echo('\n')
+    else:
+        click.echo('There is no log to be exhibited for the job {}.'.format(job.id))
