@@ -1,4 +1,4 @@
-from shub_cli.config.display import TABLE_JOB_MODEL, TABLE_JOBS_MODEL
+from shub_cli.config.display import TABLE_JOB_MODEL, TABLE_JOBS_MODEL, TABLE_SPIDERS_MODEL
 from shub_cli.util.parse import get_job_main_info
 from terminaltables import SingleTable
 
@@ -58,3 +58,13 @@ def display_log(job, click):
             click.echo('\n')
     else:
         click.echo('There is no log to be exhibited for the job {}.'.format(job.id))
+
+
+def display_spiders(spiders, click):
+    table_data = list(TABLE_SPIDERS_MODEL)
+    for s in spiders:
+        table_data.append(
+            [s['id'], s['tags'], s['version'], s['type']]
+        )
+    table = SingleTable(table_data)
+    click.echo(table.table)

@@ -41,3 +41,5 @@ no_internet_connection_tokens = [
 TABLE_JOB_MODEL = [['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
 
 TABLE_JOBS_MODEL = [['Id', 'Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
+
+TABLE_SPIDERS_MODEL = [['Id', 'Tags', 'Version', 'Type']]

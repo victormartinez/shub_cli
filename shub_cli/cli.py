@@ -6,10 +6,11 @@ from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection
 
 from shub_cli.commands.job import get_job, get_jobs
+from shub_cli.commands.spider import get_spiders
 from shub_cli.config.display import shub_not_configured_tokens, error_style, no_internet_connection_tokens, \
     shub_api_error_tokens
 from shub_cli.config.shub_config import config
-from shub_cli.util.display import display, display_jobs, display_log
+from shub_cli.util.display import display, display_jobs, display_log, display_spiders
 from shub_cli.util.parse import parse_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
@@ -66,5 +67,17 @@ def jobs(tag, lacks, spider, state, count):
     except scrapinghub.APIError:
         print_tokens(shub_api_error_tokens, style=error_style)
 
+
+@main.command()
+def spiders():
+    """List all spiders"""
+    conn = Connection(apikey=config.api_key)
+    try:
+        spiders = get_spiders(conn, config.project_id)
+        display_spiders(spiders, click)
+    except requests.exceptions.ConnectionError:
+        print_tokens(no_internet_connection_tokens, style=error_style)
+    except scrapinghub.APIError:
+        print_tokens(shub_api_error_tokens, style=error_style)
 
 register_repl(main)
