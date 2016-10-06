@@ -8,7 +8,7 @@ from scrapinghub import Connection
 from shub_cli.commands.job import get_job, get_jobs
 from shub_cli.commands.spider import get_spiders
 from shub_cli.config.display import shub_not_configured_tokens, error_style, no_internet_connection_tokens, \
-    shub_api_error_tokens, invalid_state_tokens
+    shub_api_error_tokens
 from shub_cli.config.shub_config import config
 from shub_cli.util.display import display, display_jobs, display_log, display_spiders
 from shub_cli.util.parse import parse_options
@@ -53,22 +53,19 @@ def job(id, with_log):
 @click.option('-tag', nargs=1, type=click.STRING, help='Tag that the jobs must contain.')
 @click.option('-lacks', nargs=1, type=click.STRING, help='Tag that the jobs can not contain.')
 @click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
-@click.option('-state', nargs=1, type=click.STRING, help='State of the job.')
+@click.option('-state', nargs=1, type=click.Choice(['pending', 'running', 'finished', 'deleted']), help='State of the job.')
 @click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
 def jobs(tag, lacks, spider, state, count):
     """See information of N jobs"""
-    if state in [None, 'pending', 'running', 'finished', 'deleted']:
-        params = parse_options(tag, lacks, spider, state, count)
-        conn = Connection(apikey=config.api_key)
-        try:
-            jobs = get_jobs(params, conn, config.project_id)
-            display_jobs(jobs, click)
-        except requests.exceptions.ConnectionError:
-            print_tokens(no_internet_connection_tokens, style=error_style)
-        except scrapinghub.APIError:
-            print_tokens(shub_api_error_tokens, style=error_style)
-    else:
-        print_tokens(invalid_state_tokens, style=error_style)
+    params = parse_options(tag, lacks, spider, state, count)
+    conn = Connection(apikey=config.api_key)
+    try:
+        jobs = get_jobs(params, conn, config.project_id)
+        display_jobs(jobs, click)
+    except requests.exceptions.ConnectionError:
+        print_tokens(no_internet_connection_tokens, style=error_style)
+    except scrapinghub.APIError:
+        print_tokens(shub_api_error_tokens, style=error_style)
 
 
 @main.command()

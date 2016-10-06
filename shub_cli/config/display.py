@@ -10,7 +10,6 @@ error_style = style_from_dict({
     Token.ShubApiErrorHintsHeadline: '#ccaa33',
     Token.ShubApiErrorHints1: '#ccaa33',
     Token.ShubApiErrorHints2: '#ccaa33',
-    Token.InvalidState: '#ff0066'
 })
 
 shub_not_configured_tokens = [
@@ -37,10 +36,6 @@ shub_api_error_tokens = [
 
 no_internet_connection_tokens = [
     (Token.NoInternetConnection, 'You do not have Internet connection.\n')
-]
-
-invalid_state_tokens = [
-    (Token.InvalidState, 'The state provided in not valid. Values available: pending, running, finished, deleted.\n')
 ]
 
 TABLE_JOB_MODEL = [['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
