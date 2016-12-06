@@ -42,4 +42,6 @@ TABLE_JOB_MODEL = [['Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close R
 
 TABLE_JOBS_MODEL = [['Id', 'Spider', 'Started Time', 'Items', 'Tags', 'State', 'Close Reason', 'Errors', 'Version']]
 
+HC_TABLE_JOBS_MODEL = [['Id', 'Spider', 'Finished Time', 'State', 'Close Reason', 'Errors', 'Logs', 'Version']]
+
 TABLE_SPIDERS_MODEL = [['Id', 'Tags', 'Version', 'Type']]

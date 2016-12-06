@@ -1,5 +1,5 @@
-from shub_cli.config.display import TABLE_JOB_MODEL, TABLE_JOBS_MODEL, TABLE_SPIDERS_MODEL
-from shub_cli.util.parse import get_job_main_info
+from shub_cli.config.display import TABLE_JOB_MODEL, TABLE_JOBS_MODEL, TABLE_SPIDERS_MODEL, HC_TABLE_JOBS_MODEL
+from shub_cli.util.parse import get_job_main_info, get_hc_job_main_info
 from terminaltables import SingleTable
 
 
@@ -35,6 +35,23 @@ def display_jobs(jobs, click):
             [main_info['id'], main_info['spider'], main_info['started_time'], main_info['items_scraped'],
              main_info['tags'], main_info['state'], main_info['close_reason'], main_info['errors_count'],
              main_info['version']]
+        )
+    table = SingleTable(table_data)
+    click.echo(table.table)
+
+
+def display_hc_jobs(jobs, click):
+    """
+    Display all the jobs' information contained in a JobSet.
+
+    :param jobs: A JobSet object provided by ScrapingHub with all the jobs
+    :param click: A click object used to print on the terminal
+    """
+    table_data = list(HC_TABLE_JOBS_MODEL)
+    for job in jobs:
+        main_info = get_hc_job_main_info(job)
+        table_data.append(
+            [main_info['id'], main_info['spider'], main_info['finished_time'], main_info['state'], main_info['close_reason'], main_info['errors_count'], main_info['logs'], main_info['version']]
         )
     table = SingleTable(table_data)
     click.echo(table.table)

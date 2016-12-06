@@ -3,15 +3,15 @@ import requests
 import scrapinghub
 from click_repl import register_repl
 from prompt_toolkit.shortcuts import print_tokens
-from scrapinghub import Connection
-
-from shub_cli.commands.job import get_job, get_jobs
+from scrapinghub import Connection, HubstorageClient
+from shub_cli.commands.job import get_job, get_jobs, get_jobs_with_error
+from shub_cli.commands.schedule import schedule_job
 from shub_cli.commands.spider import get_spiders
 from shub_cli.config.display import shub_not_configured_tokens, error_style, no_internet_connection_tokens, \
     shub_api_error_tokens
 from shub_cli.config.shub_config import config
-from shub_cli.util.display import display, display_jobs, display_log, display_spiders
-from shub_cli.util.parse import parse_options
+from shub_cli.util.display import display, display_jobs, display_log, display_spiders, display_hc_jobs
+from shub_cli.util.parse import parse_options, parse_schedule_options
 from shub_cli.util.scrapinghub import get_sh_api_key, get_sh_project
 
 
@@ -53,15 +53,23 @@ def job(id, with_log):
 @click.option('-tag', nargs=1, type=click.STRING, help='Tag that the jobs must contain.')
 @click.option('-lacks', nargs=1, type=click.STRING, help='Tag that the jobs can not contain.')
 @click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
-@click.option('-state', nargs=1, type=click.Choice(['pending', 'running', 'finished', 'deleted']), help='State of the job.')
+@click.option('-state', nargs=1, type=click.Choice(['pending', 'running', 'finished', 'deleted']),
+              help='State of the job.')
 @click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
-def jobs(tag, lacks, spider, state, count):
+@click.option('--with-error', is_flag=True, help='Presents the jobs that contains error')
+def jobs(tag, lacks, spider, state, count, with_error):
     """See information of N jobs"""
-    params = parse_options(tag, lacks, spider, state, count)
-    conn = Connection(apikey=config.api_key)
     try:
-        jobs = get_jobs(params, conn, config.project_id)
-        display_jobs(jobs, click)
+        if not with_error:
+            conn = Connection(apikey=config.api_key)
+            params = parse_options(tag, lacks, spider, state, count)
+            jobs = get_jobs(params, conn, config.project_id)
+            display_jobs(jobs, click)
+        else:
+            hc = HubstorageClient(auth=config.api_key)
+            project = hc.get_project(config.project_id)
+            jobs = get_jobs_with_error(project, count)
+            display_hc_jobs(jobs, click)
     except requests.exceptions.ConnectionError:
         print_tokens(no_internet_connection_tokens, style=error_style)
     except scrapinghub.APIError:
@@ -79,5 +87,23 @@ def spiders():
         print_tokens(no_internet_connection_tokens, style=error_style)
     except scrapinghub.APIError:
         print_tokens(shub_api_error_tokens, style=error_style)
+
+
+@main.command()
+@click.option('-spider', nargs=1, type=click.STRING, help='Spider id')
+@click.option('-add-tags', type=click.STRING, multiple=True, help='Add one or more tags to the job')
+@click.option('-priority', type=click.IntRange(0, 4), help='Set the priority the job')
+def schedule(spider, add_tag, priority):
+    """Schedule a job"""
+    conn = Connection(apikey=config.api_key)
+    params = parse_schedule_options(spider, add_tag, priority)
+    try:
+        id = schedule_job(conn, config.project_id, params)
+        click.echo('Job {} scheduled.\n'.format(id))
+    except requests.exceptions.ConnectionError:
+        print_tokens(no_internet_connection_tokens, style=error_style)
+    except scrapinghub.APIError as exc:
+        click.echo("It was not possible to schedule the job. \n{}\n".format(exc))
+
 
 register_repl(main)
