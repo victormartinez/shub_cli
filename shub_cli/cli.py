@@ -106,4 +106,11 @@ def schedule(spider, add_tag, priority):
         click.echo("It was not possible to schedule the job. \n{}\n".format(exc))
 
 
+@main.command()
+def config():
+    """Check your credentials"""
+    text = '''ApiKey: {}\nProject: {}\n'''.format(config.api_key, config.project_id)
+    click.echo(text)
+
+
 register_repl(main)
