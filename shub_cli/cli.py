@@ -107,7 +107,7 @@ def schedule(spider, add_tag, priority):
 
 
 @main.command()
-def config():
+def credentials():
     """Check your credentials"""
     text = '''ApiKey: {}\nProject: {}\n'''.format(config.api_key, config.project_id)
     click.echo(text)
