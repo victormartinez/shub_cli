@@ -22,7 +22,7 @@ def spiders():
 
 
 @patch('scrapinghub.Connection')
-def test_get_jobs(conn, spiders):
+def test_get_spiders(conn, spiders):
     conn['123456'].spiders.return_value = spiders
     actual_spiders = get_spiders(conn, '128901')
     assert actual_spiders == spiders
