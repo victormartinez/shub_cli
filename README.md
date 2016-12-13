@@ -75,6 +75,12 @@ List all spiders available.
 List the last 10 jobs or the ones according to your criteria.
 ```
 > jobs
+> jobs -spider <spider> -tag <tag> -lacks <lacks> -state <[pending,finished,running,deleted]> -count <[0,1000]>
+```
+
+Example:
+```
+> jobs
 > jobs -spider example -tag production -lacks consumed -state finished -count 100
 ```
 
@@ -88,6 +94,29 @@ Show, delete or cancel a id.
 > job -show <id> --with-log
 > job -delete <id>
 > job -cancel <id>
+```
+
+Example:
+```
+> job -show 11/23/19801
+> job -show 11/23/19801 --with-log
+> job -delete 11/23/19801
+> job -cancel 11/23/19801
+```
+
+
+#### Schedule
+
+Schedule a spider execution.
+```
+> schedule -spider <spider> -priority <[1,2,3,4]> -tags <tag1,tag2>
+```
+
+Example:
+```
+> schedule -spider my-spider
+> schedule -spider my-spider -priority 4 -tags production,periodic
+> schedule -spider my-spider -priority 3 -tags test
 ```
 
 
