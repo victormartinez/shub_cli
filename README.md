@@ -5,7 +5,7 @@ A Command Line Interface at your hands to deal with the features of ScrapingHub.
 [![Code Health](https://landscape.io/github/victormartinez/shub_cli/master/landscape.svg?style=flat)](https://landscape.io/github/victormartinez/shub_cli/master)
 
 
-![start-using](https://cloud.githubusercontent.com/assets/4680755/18898756/0ea42c0e-850a-11e6-801a-fdbd75915cdd.gif)
+[![Build Status](https://travis-ci.org/victormartinez/shub_cli.svg?branch=master)](https://travis-ci.org/victormartinez/shub_cli)
 
 ### Install
 You must install it through pip.
