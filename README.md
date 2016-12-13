@@ -1,5 +1,5 @@
 # Scrapinghub CLI
-----
+
 A Command Line Interface at your hands to deal with the features of ScrapingHub.
 
 [![Code Health](https://landscape.io/github/victormartinez/shub_cli/master/landscape.svg?style=flat)](https://landscape.io/github/victormartinez/shub_cli/master)
@@ -27,54 +27,72 @@ projects:
   default: <PROJECT_ID>
 ```
 
-If you either do not want to configure the file or want to use non-default credentials start the shub-cli with the command:
-```
-$ shub-cli -api '<API KEY>' -project <PROJECT_ID> repl
-```
-
-
-
-### Quick Start:
+### Start
 
 ```
+// If you set up ~/.scrapinghub.yml file
 $ shub-cli repl
 ```
-or 
 
 ```
-$ shub-cli -api '<API KEY>' -project <PROJECT_ID> repl
+// Otherwise
+$ shub-cli -api <API KEY> -project <PROJECT_ID> repl
 ```
 
-### Usage
+```
+// If you just want to run a command
+$ shub-cli [credentials|spiders|job|jobs|schedule]
+```
 
-##### Getting Jobs
+
+### Cheatsheet
 
 ```
-> jobs [-tag tag] [-lacks tag] [-spider spider] [-state state] [-count count]
+> credentials
+> spiders
+> job [-show|-cancel|-delete id]
+> jobs [-spider spider] [-tag tag] [-lacks tag] [-state state] [-count count]
+> schedule [-spider spider] [-tags tag1,tag2] [-priority 1|2|3|4]
+```
+
+
+### Commands
+
+##### Credentials
+
+Check what credentials are being used to connect to Scrapinghub.
+```
+> credentials
+```
+
+
+##### Spiders
+List all spiders available.
+```
+> spiders
+```
+
+
+##### Jobs
+
+List the last 10 jobs or the ones according to your criteria.
+```
+> jobs
+> jobs -spider example -tag production -lacks consumed -state finished -count 100
 ```
 
 **Attention:** By default, shub-cli will prompt the last 10 jobs. To override that behaviour use the -count parameter with the number of jobs you intend to show.
 
-##### Getting a specific job
+##### Job
+
+Show, delete or cancel a id.
 ```
-> job -id <id>
+> job -show <id>
+> job -show <id> --with-log
+> job -delete <id>
+> job -cancel <id>
 ```
 
-##### Getting a specific job along with the logs
-```
-> job -id <id> --with-log
-```
-
-
-### Examples:
-
-```
-$ shub-cli repl
-
-> jobs -count 100
-> jobs -tag production -spider myspider -state finished
-> job -id '10/10/1000'
-```
 
 ### Help:
 For help or suggestion please open an issue at the [Github Issues page](https://github.com/victormartinez/shub_cli/issues).
