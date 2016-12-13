@@ -2,7 +2,7 @@ import click
 from click_repl import register_repl
 from prompt_toolkit.shortcuts import print_tokens
 from scrapinghub import Connection, HubstorageClient
-from shub_cli.commands.job import get_jobs_with_error
+from shub_cli.util.scrapinghub import get_jobs_with_error
 from shub_cli.config.display import token_style, create_error_token, create_info_token
 from shub_cli.config.shub_config import config
 from shub_cli.exceptions import JobNotFound
