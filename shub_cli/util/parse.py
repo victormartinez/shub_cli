@@ -26,10 +26,10 @@ def parse_options(tag, lacks, spider, state, count):
     return dicttoolz.valfilter(lambda v: v is not None, params)
 
 
-def parse_schedule_options(spider, add_tags, priority):
+def parse_schedule_options(spider, tags, priority):
     params = dict(
         spider=spider,
-        add_tag=_get_tags(add_tags),
+        add_tag=_get_tags(tags),
         priority=priority
     )
     return dicttoolz.valfilter(lambda v: v is not None, params)
@@ -38,7 +38,7 @@ def parse_schedule_options(spider, add_tags, priority):
 def _get_tags(tags):
     if not tags:
         return None
-    return [t.strip() for t in tags.split(',') if t != '' and t is not None]
+    return [t.strip() for t in tags[0].split(',') if t != '' and t is not None]
 
 
 def parse_list_to_string(tags):
