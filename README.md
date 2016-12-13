@@ -6,6 +6,8 @@ A Command Line Interface at your hands to deal with the features of ScrapingHub.
 
 ![start-using](https://cloud.githubusercontent.com/assets/4680755/18898756/0ea42c0e-850a-11e6-801a-fdbd75915cdd.gif)
 
+[Python Package Index](https://pypi.python.org/pypi/shub-cli)
+
 ### Install
 You must install it through pip.
 
