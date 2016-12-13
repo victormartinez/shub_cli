@@ -29,18 +29,18 @@ projects:
 
 ### Start
 
+If you set up ~/.scrapinghub.yml file
 ```
-// If you set up ~/.scrapinghub.yml file
 $ shub-cli repl
 ```
 
+Otherwise...
 ```
-// Otherwise
 $ shub-cli -api <API KEY> -project <PROJECT_ID> repl
 ```
 
+If you just want to run a command
 ```
-// If you just want to run a command
 $ shub-cli [credentials|spiders|job|jobs|schedule]
 ```
 
@@ -58,7 +58,7 @@ $ shub-cli [credentials|spiders|job|jobs|schedule]
 
 ### Commands
 
-##### Credentials
+#### Credentials
 
 Check what credentials are being used to connect to Scrapinghub.
 ```
@@ -66,14 +66,14 @@ Check what credentials are being used to connect to Scrapinghub.
 ```
 
 
-##### Spiders
+#### Spiders
 List all spiders available.
 ```
 > spiders
 ```
 
 
-##### Jobs
+#### Jobs
 
 List the last 10 jobs or the ones according to your criteria.
 ```
@@ -83,7 +83,7 @@ List the last 10 jobs or the ones according to your criteria.
 
 **Attention:** By default, shub-cli will prompt the last 10 jobs. To override that behaviour use the -count parameter with the number of jobs you intend to show.
 
-##### Job
+#### Job
 
 Show, delete or cancel a id.
 ```
