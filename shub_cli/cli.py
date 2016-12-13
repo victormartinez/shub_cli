@@ -86,7 +86,7 @@ def job(show, delete, cancel, with_log):
 @click.option('-spider', nargs=1, type=click.STRING, help='Name of the spider.')
 @click.option('-state', nargs=1, type=click.Choice(['pending', 'running', 'finished', 'deleted']),
               help='State of the job.')
-@click.option('-count', nargs=1, type=click.INT, help='Quantity of results.', default=10)
+@click.option('-count', nargs=1, type=click.IntRange(1, 1000), help='Quantity of results.', default=10)
 @click.option('--with-error', is_flag=True, help='Presents the jobs that contains error')
 def jobs(tag, lacks, spider, state, count, with_error):
     """See information of N jobs"""
