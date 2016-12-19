@@ -52,7 +52,7 @@ $ shub-cli [credentials|spiders|job|jobs|schedule]
 > credentials
 > spiders
 > job [-show|-cancel|-delete id]
-> jobs [-spider spider] [-tag tag] [-lacks tag] [-state state] [-count count]
+> jobs [-spider spider] [-tag tag] [-lacks tag] [-state pending|running|finished|deleted] [-count count]
 > schedule [-spider spider] [-tags tag1,tag2] [-priority 1|2|3|4]
 ```
 
