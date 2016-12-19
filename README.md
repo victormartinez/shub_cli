@@ -9,10 +9,15 @@ A Command Line Interface at your hands to deal with the features of ScrapingHub.
 [Python Package Index](https://pypi.python.org/pypi/shub-cli)
 
 ### Install
-You must install it through pip.
+You must install it using pip...
 
 ```
 $ pip install shub-cli
+```
+
+... or [pipsi](https://github.com/mitsuhiko/pipsi)
+```
+$ pipsi install shub-cli
 ```
 
 ### Configuration
