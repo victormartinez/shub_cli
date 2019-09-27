@@ -7,19 +7,14 @@
 click-repl==0.1.0
 click==6.6
 hubstorage==0.23.2        # via shub
-prompt-toolkit==1.0.7     # via click-repl
-prompt_toolkit==1.0.7     # via click-repl
-Pygments==2.1.3
-PyYAML==3.12              # via shub
+prompt_toolkit==1.0.7
+pygments==2.1.3
+pyyaml==5.1               # via shub
 requests==2.11.1          # via hubstorage, scrapinghub, shub
 retrying==1.3.3           # via hubstorage, scrapinghub
 scrapinghub==1.9.0
 shub==2.4.2
-six==1.10.0               # via click-repl, hubstorage, prompt-toolkit, prompt_toolkit, retrying, scrapinghub, shub
+six==1.10.0               # via click-repl, hubstorage, prompt-toolkit, retrying, scrapinghub, shub
 terminaltables==3.0.0
 toolz==0.8.0
-wcwidth==0.1.7            # via prompt-toolkit, prompt_toolkit
-
-# The following packages are commented out because they are
-# considered to be unsafe in a requirements file:
-# pip                       # via shub
+wcwidth==0.1.7            # via prompt-toolkit
